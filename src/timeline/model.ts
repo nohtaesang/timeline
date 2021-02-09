@@ -24,7 +24,7 @@ export class SequenceModel {
 		this.right = right;
 	}
 
-	setSelected(selected: boolean) {
+	onClickSequence(selected: boolean) {
 		this.selected = selected;
 	}
 }

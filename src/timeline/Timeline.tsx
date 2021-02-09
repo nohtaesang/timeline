@@ -1,5 +1,5 @@
 import React from 'react';
-import { SequenceModel } from './model';
+import { SequenceModel, TimelineModel } from './model';
 import { sequenceHeight, leftWidth, rulerHeight, headerHeight } from './const';
 
 // const ItemSizeHandle = ({ left, right }: { left?: boolean; right?: boolean }) => {
@@ -151,6 +151,7 @@ const Ruler = (props: any) => {
 		>
 			{indexes.map((a, index) => (
 				<div
+					key={index}
 					style={{
 						position: 'relative',
 						width: sceneWidth,
@@ -183,6 +184,8 @@ const Sequence = (props: any) => {
 	const { sequence, sceneWidth, scrollLeft } = props;
 	const content = `${sequence.id}, hello my name is taesang. asdf asdf sadf asdf adf asf as fasd f 끝`;
 
+	const [ isSelected, setIsSelected ] = React.useState(sequence.selected);
+
 	const offset = 24;
 	const getPositionAndLeft = (): { position: 'absolute' | 'sticky'; left: number } => {
 		let position: 'absolute' | 'sticky' = 'absolute',
@@ -203,8 +206,7 @@ const Sequence = (props: any) => {
 	};
 
 	const hadleClickSequence = () => {
-		console.log('hi');
-		sequence.setSelected(!sequence.selected);
+		sequence.onClickSequence(!sequence.selected);
 	};
 
 	return (
@@ -248,7 +250,7 @@ const Navigation = (props: any) => {
 	const [ isHovered, setIsHovered ] = React.useState(false);
 	const width = 220;
 	const left = (activeLeft ? leftWidth : 0) + isLeft ? 0 : timelineWidth - width;
-
+	console.log(left);
 	if (isLeft && sequence.left * sceneWidth > scrollLeft) {
 		return null;
 	}
@@ -348,6 +350,7 @@ const Row = (props: any) => {
 
 const Timeline = (props: any) => {
 	const { timelineModel: { sceneCount, currentSceneIndex, sequences } } = props;
+
 	const timelineRef = React.useRef<HTMLDivElement>(null);
 	const scrollRef = React.useRef<HTMLDivElement>(null);
 	const [ timelineWidth, setTimelineWidth ] = React.useState(-1);
@@ -371,6 +374,7 @@ const Timeline = (props: any) => {
 	}, []);
 
 	const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+		console.log(e.currentTarget.scrollLeft);
 		setScrollLeft(e.currentTarget.scrollLeft);
 	};
 
@@ -381,7 +385,6 @@ const Timeline = (props: any) => {
 		let nextScrollLeft = isLeft
 			? sequence.left * sceneWidth - offset
 			: sequence.right * sceneWidth - timelineWidth + offset;
-
 		timelineRef.current.scrollLeft = nextScrollLeft;
 		setScrollLeft(nextScrollLeft);
 	};
