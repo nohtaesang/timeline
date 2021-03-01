@@ -9,32 +9,32 @@ function App() {
 			id: 'a',
 			left: 3,
 			right: 8
+		},
+		{
+			id: 'c',
+			left: 5,
+			right: 60
+		},
+		{
+			id: 'b',
+			left: 50,
+			right: 80
+		},
+		{
+			id: 'e',
+			left: 3,
+			right: 5
+		},
+		{
+			id: 'f',
+			left: 1,
+			right: 10
+		},
+		{
+			id: 'g',
+			left: 6,
+			right: 7
 		}
-		// {
-		// 	id: 'c',
-		// 	left: 5,
-		// 	right: 60
-		// },
-		// {
-		// 	id: 'b',
-		// 	left: 50,
-		// 	right: 80
-		// },
-		// {
-		// 	id: 'e',
-		// 	left: 3,
-		// 	right: 5
-		// },
-		// {
-		// 	id: 'f',
-		// 	left: 1,
-		// 	right: 10
-		// },
-		// {
-		// 	id: 'g',
-		// 	left: 6,
-		// 	right: 7
-		// }
 	];
 
 	const [ timelineModel ] = React.useState(getTimelineModel(100, 6, getSequenceModels(sequences)));
